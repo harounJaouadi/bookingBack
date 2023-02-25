@@ -22,10 +22,24 @@ const connect =  function () {
 
 const app = express();
 
-app.use("/api/v1",authRouter)
-app.use("/api/v1",hotelsRouter)
-app.use("/api/v1",roomsRouter)
-app.use("/api/v1",usersRouter)
+app.use(express.json()) ; 
+
+app.use("/api/v1/auth",authRouter)
+app.use("/api/v1/hotel",hotelsRouter)
+app.use("/api/v1/room",roomsRouter)
+app.use("/api/v1/user",usersRouter)
+app.use((err,req,res,next)=>{
+  const errorStatus=err.status || 500 ; 
+  const errorMsg=err.message || "something going wrong" ; 
+  res.status(errorStatus).json({
+    success :false , 
+    status :errorStatus , 
+    message : errorMsg , 
+    stack : err.stack 
+  })
+
+})
+
 
 app.listen(5000, () => {
     connect();

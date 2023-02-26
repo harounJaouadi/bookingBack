@@ -5,6 +5,7 @@ import authRouter from "./routes/auth.js"
 import hotelsRouter from "./routes/hotels.js";
 import roomsRouter from "./routes/rooms.js";
 import usersRouter from "./routes/users.js";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config();
@@ -21,9 +22,10 @@ const connect =  function () {
 
 
 const app = express();
-
-app.use(express.json()) ; 
-
+//middlewares 
+app.use(express.json()) ;
+app.use(cookieParser()) ; 
+//end
 app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/hotel",hotelsRouter)
 app.use("/api/v1/room",roomsRouter)
@@ -36,7 +38,7 @@ app.use((err,req,res,next)=>{
     status :errorStatus , 
     message : errorMsg , 
     stack : err.stack 
-  })
+  });
 
 })
 

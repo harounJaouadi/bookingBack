@@ -30,6 +30,9 @@ app.use("/api/v1/auth",authRouter)
 app.use("/api/v1/hotel",hotelsRouter)
 app.use("/api/v1/room",roomsRouter)
 app.use("/api/v1/user",usersRouter)
+
+
+//this middleware is used to handle errors 
 app.use((err,req,res,next)=>{
   const errorStatus=err.status || 500 ; 
   const errorMsg=err.message || "something going wrong" ; 
